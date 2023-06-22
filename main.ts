@@ -67,13 +67,13 @@ const barrel = (dirName: string) => {
   let allExports: string[] = [];
   let all = fs.readdirSync(dirName);
 
-  let files = [
-    ...all
+let files = all
       .filter((f) => /(\.ts)|(\.js)$/.test(f)) // only keeps files ending with `.ts` or `.js`
       .filter((f) => f.split(".").length === 2)
-      .filter((f) => !f.startsWith("index")),
-    ...all.filter((f) => fs.lstatSync(path.join(dirName, f)).isDirectory()),
-  ];
+      .filter((f) => !f.startsWith("index"))
+      .concat(all.filter(
+           (f) => fs.lstatSync(path.join(dirName, f)).isDirectory())
+      );
 
   let barrelContents = files
     .map((f) => {

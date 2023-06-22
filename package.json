@@ -1,6 +1,6 @@
 {
   "name": "barrel-roll",
-  "version": "1.1.5",
+  "version": "1.1.7",
   "description": "barrel generator",
   "bin": {
     "roll": "./main.js"
@@ -21,9 +21,8 @@
     "./main.js"
   ],
   "scripts": {
-    "test": "tsc; node main.js ./tests/components",
+    "test": "tsc; node main.js ./test",
     "build": "tsc",
-    "prepublishOnly": "tsc",
     "publish": "tsc; npm publish"
   },
   "author": "pkitazos",

@@ -9,7 +9,7 @@ const program = new Command();
 program
   .name("roll")
   .description("CLI to create barrel files")
-  .version("1.1.4")
+  .version("1.1.7")
   .argument("[dirs...]", "directory to barrel")
   .action((dirs: string[] | undefined) => {
     dirs ??= loadFromConfig();
@@ -23,14 +23,13 @@ const validateDirs = (dirs: string[]) => {
   if (missingDirs.length) {
     console.log(`Some of the directories you have provided are missing:`);
     missingDirs.forEach((d) => {
-      console.error(`\t -${path.relative(path.resolve(), d)}`);
+      console.error(`\t - ${path.relative(path.resolve(), d)}`);
     });
     process.exit(1);
   }
 };
 
 const loadFromConfig = () => {
-  // TODO: this whole thing
   return [];
 };
 
@@ -80,6 +79,7 @@ const barrel = (dirName: string) => {
       let filename = f.split(".")[0];
 
       let fileExports = getExports(path.join(dirName, f)).sort();
+      if (fileExports.length === 0) return "";
 
       let index = fileExports.indexOf("default");
 

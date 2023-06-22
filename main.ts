@@ -34,7 +34,7 @@ const loadFromConfig = () => {
   return [];
 };
 
-const coolArrayDifference = (all: string[], fake: string[]) => {
+const sortedArrayDifference = (all: string[], fake: string[]) => {
   let counter = 0;
   return all.filter((element) => {
     if (element === fake[counter]) {

@@ -46,13 +46,14 @@ const sortedArrayDifference = (all: string[], fake: string[]) => {
 };
 
 const getExports = (file: string) => {
+  
+  if (fs.lstatSync(file).isDirectory()) return barrel(file);
+  
   const allExportsRegex =
     /((?<=export\s+(let|const|function)\s+)(\w+))|((?<=export\s*{\s*(\w+,\s*)*)\w+(?=.*}))|((?<=export\s+)default)/g;
 
   const fakeExportsRegex =
     /((?<=("|'|`|\/).*)(((?<=export\s+(let|const|function)\s+)(\w+))|((?<=export\s*{\s*(\w+,\s*)*)\w+(?=.*}))|((?<=export\s+)default))(?=.*\2))|((?<=\/\/.*)(((?<=export\s+(let|const|function)\s+)(\w+))|((?<=export\s*{\s*(\w+,\s*)*)\w+(?=.*}))|((?<=export\s+)default)))|((?<=\/\*(.|\n)*)(((?<=export\s+(let|const|function)\s+)(\w+))|((?<=export\s*{\s*(\w+,\s*)*)\w+(?=.*}))|((?<=export\s+)default))(?=(.|\n)*\*\/))/g;
-
-  if (fs.lstatSync(file).isDirectory()) return barrel(file);
 
   let fileContents = fs.readFileSync(file).toString();
 
